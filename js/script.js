@@ -13,16 +13,27 @@ resumeLists.forEach((list, idx) => {
     });
 });
 
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+let menuIcon = document.querySelector("#menu-icon");
+let navbar = document.querySelector(".navbar");
+let navLinks = document.querySelectorAll(".navbar a");
 
-menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
-};
+// Toggle navbar on menu icon click
+menuIcon.addEventListener("click", function () {
+    navbar.classList.toggle("active");
+    menuIcon.classList.toggle("bx-x");
+});
+
+// Close navbar when a section link is clicked (only for small screens)
+navLinks.forEach(link => {
+    link.addEventListener("click", function () {
+        if (window.innerWidth < 768) {  // Only for small screens
+            navbar.classList.remove("active");
+            menuIcon.classList.remove("bx-x");
+        }
+    });
+});
 
 let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
 
 window.onscroll = () => {
     sections.forEach(sec => {
@@ -31,7 +42,7 @@ window.onscroll = () => {
         let height = sec.offsetHeight;
         let id = sec.getAttribute('id');
 
-        if(top >= offset && top < offset + height) {
+        if(top >= offset && top < offset  + height) {
             navLinks.forEach(links => {
                 links.classList.remove('active');
                 document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
@@ -40,12 +51,10 @@ window.onscroll = () => {
     });
 
     let header = document.querySelector('header');
-
     header.classList.toggle('sticky', window.scrollY > 100);
 
     menuIcon.classList.remove('bx-x');
     navbar.classList.remove('active');
-
 };
 
 ScrollReveal({ 
@@ -58,6 +67,7 @@ ScrollReveal({
 ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
 ScrollReveal().reveal('.about-content, .portfolio-box, .title, .tab-box, .work__card, .input-box, .textarea', { origin: 'bottom' });
 ScrollReveal().reveal('.about-img, .experience-box, .tab-wrapper', { origin: 'left' });
+ScrollReveal().reveal('.certifications heading, .contact heading, .input-box, .textarea', { origin: 'right' });
 
 const typed = new Typed('.multiple-text', {
     strings: ['Machine Learning Engineer', 'Data Scientist', 'Power Platform Developer'],
@@ -65,7 +75,7 @@ const typed = new Typed('.multiple-text', {
     backSpeed: 100,
     backDelay: 1000,
     loop: true
-})
+});
 
 const typed2 = new Typed('.multiple-text2', {
     strings: ['Machine Learning Engineer', 'Data Scientist', 'Power Platform Developer'],
@@ -73,9 +83,7 @@ const typed2 = new Typed('.multiple-text2', {
     backSpeed: 100,
     backDelay: 1000,
     loop: true
-})
-
-
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     const scrollBtn = document.querySelector(".scroll-to-top");
@@ -111,4 +119,4 @@ document.addEventListener("DOMContentLoaded", function () {
         this.classList.toggle("active");
       });
     });
-  });
+});
