@@ -854,8 +854,11 @@ span {
 
   .home {
     min-height: auto;
-      flex-direction: column;
-    }
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    flex-direction: column-reverse;
+  }
 
   .home-content h3 {
     font-size: 2.6rem;
